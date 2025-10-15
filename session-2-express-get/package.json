@@ -1,0 +1,15 @@
+{
+  "name": "session-2-express-get",
+  "version": "1.0.0",
+  "description": "Express GET requests examples",
+  "main": "express_get_basics.js",
+  "scripts": {
+    "start": "node express_get_basics.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

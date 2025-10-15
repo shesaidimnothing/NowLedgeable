@@ -1,0 +1,15 @@
+{
+  "name": "session-5-middleware-static",
+  "version": "1.0.0",
+  "description": "Express middleware and static files",
+  "main": "express_middleware.js",
+  "scripts": {
+    "start": "node express_middleware.js",
+    "test-order": "node express_middleware_order.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

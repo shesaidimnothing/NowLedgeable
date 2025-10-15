@@ -1,0 +1,16 @@
+{
+  "name": "session-6-auth-authorization",
+  "version": "1.0.0",
+  "description": "Express authentication and authorization system",
+  "main": "express_auth.js",
+  "scripts": {
+    "start": "node express_auth.js",
+    "test": "node test_auth_system.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "axios": "^1.6.0"
+  }
+}

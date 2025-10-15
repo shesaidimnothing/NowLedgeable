@@ -1,0 +1,17 @@
+{
+  "name": "session-4-database-connection",
+  "version": "1.0.0",
+  "description": "Express with PostgreSQL database connection",
+  "main": "express_with_db.js",
+  "scripts": {
+    "start": "node express_with_db.js",
+    "test-db": "node test_db.js",
+    "test-env": "node test_env.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.11.3"
+  }
+}
