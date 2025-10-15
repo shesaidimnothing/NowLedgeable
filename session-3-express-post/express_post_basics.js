@@ -2,10 +2,8 @@ const express = require('express')
 const app = express()
 const port = 3007
 
-// Middleware to parse JSON bodies
 app.use(express.json())
 
-// Global tasks array for todo list
 let tasks = []
 
 app.get('/', (req, res) => {
@@ -52,20 +50,16 @@ app.get('/get-user/:userId', (req, res) => {
   res.send(`<h1>ID de l'utilisateur : ${userId}</h1>`)
 })
 
-// Echo server - POST endpoint
 app.post('/data', (req, res) => {
   console.log('Body de la requête:', req.body)
   res.json(req.body)
 })
 
-// Todo List Endpoints
 
-// GET /tasks - Return all tasks
 app.get('/tasks', (req, res) => {
   res.json(tasks)
 })
 
-// POST /new-task - Add a new task
 app.post('/new-task', (req, res) => {
   const { title, description, isDone } = req.body
   
@@ -84,7 +78,6 @@ app.post('/new-task', (req, res) => {
   res.status(201).json(newTask)
 })
 
-// PUT /update-task/:id - Update a specific task
 app.put('/update-task/:id', (req, res) => {
   const taskId = parseInt(req.params.id)
   const { title, description, isDone } = req.body
@@ -102,7 +95,6 @@ app.put('/update-task/:id', (req, res) => {
   res.json(tasks[taskIndex])
 })
 
-// DELETE /delete-task/:id - Delete a specific task
 app.delete('/delete-task/:id', (req, res) => {
   const taskId = parseInt(req.params.id)
   

@@ -4,10 +4,8 @@ const { getUsers, insertUser } = require('./db_utils');
 const app = express();
 const port = 3002;
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Route to get all users from database
 app.get('/users', (req, res) => {
   getUsers((err, users) => {
     if (err) {
@@ -18,7 +16,6 @@ app.get('/users', (req, res) => {
   });
 });
 
-// Route to add a new user
 app.post('/users', (req, res) => {
   const { email } = req.body;
   
@@ -35,7 +32,6 @@ app.post('/users', (req, res) => {
   });
 });
 
-// Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });

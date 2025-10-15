@@ -3,23 +3,19 @@ const express = require('express');
 const app = express();
 const port = 3002;
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Mock database data
 const mockUsers = [
   { id: 1, email: 'user1@test.com' },
   { id: 2, email: 'user2@test.com' },
   { id: 3, email: 'user3@test.com' }
 ];
 
-// Route to get all users from database
 app.get('/users', (req, res) => {
   console.log('Getting all users from mock database');
   res.json(mockUsers);
 });
 
-// Route to add a new user
 app.post('/users', (req, res) => {
   const { email } = req.body;
   
@@ -37,7 +33,6 @@ app.post('/users', (req, res) => {
   res.status(201).json(newUser);
 });
 
-// Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running with mock database' });
 });

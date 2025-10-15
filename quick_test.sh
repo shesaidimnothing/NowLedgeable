@@ -20,7 +20,6 @@ echo
 BASE_DIR="/Users/w999/Desktop/nowledgeable"
 cd "$BASE_DIR"
 
-# Check if all session directories exist
 sessions=(
     "session-2-express-get:express_get_basics.js:3000"
     "session-3-express-post:express_post_basics.js:3001"
@@ -37,19 +36,15 @@ for session_info in "${sessions[@]}"; do
     
     print_status "📚 Checking $session_dir..." $BLUE
     
-    # Check if directory exists
     if [ -d "$session_dir" ]; then
         print_status "✅ Directory exists" $GREEN
         
-        # Check if main script exists
         if [ -f "$session_dir/$script_name" ]; then
             print_status "✅ Main script exists" $GREEN
             
-            # Check if package.json exists
             if [ -f "$session_dir/package.json" ]; then
                 print_status "✅ Package.json exists" $GREEN
                 
-                # Check if node_modules exists (or can use parent)
                 if [ -d "$session_dir/node_modules" ] || [ -d "node_modules" ]; then
                     print_status "✅ Dependencies available" $GREEN
                     print_status "✅ $session_dir: READY TO RUN" $GREEN

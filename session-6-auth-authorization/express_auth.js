@@ -6,10 +6,8 @@ const port = 3005
 
 app.use(express.json())
 
-// Variables globales pour l'authentification
 const authenticatedUsers = {}
 
-// 1. Middleware pour afficher les headers
 function headersMiddleware(req, res, next) {
   console.log('=== HEADERS ===')
   console.log('Authorization:', req.headers.authorization)
@@ -19,7 +17,6 @@ function headersMiddleware(req, res, next) {
   next()
 }
 
-// 2. Middleware firewall
 function firewallMiddleware(req, res, next) {
   const unprotectedUrls = [
     '/',
@@ -32,13 +29,11 @@ function firewallMiddleware(req, res, next) {
   
   console.log(`Vérification de l'URL: ${requestedUrl}`)
   
-  // Si l'URL n'est pas protégée, laisser passer
   if (unprotectedUrls.includes(requestedUrl)) {
     console.log('URL non protégée - accès autorisé')
     return next()
   }
   
-  // Vérifier le token d'autorisation
   const authHeader = req.headers.authorization
   if (!authHeader) {
     console.log('Aucun token fourni - accès refusé')
@@ -57,11 +52,9 @@ function firewallMiddleware(req, res, next) {
   next()
 }
 
-// Appliquer les middlewares
 app.use(headersMiddleware)
 app.use(firewallMiddleware)
 
-// Routes publiques
 app.get('/', (req, res) => {
   res.json({ message: 'Bienvenue sur l\'API d\'authentification' })
 })
@@ -70,7 +63,6 @@ app.get('/public', (req, res) => {
   res.json({ message: 'Cette route est publique' })
 })
 
-// Route d'authentification
 app.post('/authenticate', (req, res) => {
   const { email, password } = req.body
   
@@ -87,10 +79,8 @@ app.post('/authenticate', (req, res) => {
     return res.status(403).json({ error: 'Identifiants invalides' })
   }
   
-  // Générer un token
   const token = generateToken()
   
-  // Stocker l'utilisateur authentifié
   authenticatedUsers[token] = {
     id: user.id,
     email: user.email,
@@ -110,7 +100,6 @@ app.post('/authenticate', (req, res) => {
   })
 })
 
-// Route d'inscription
 app.post('/register', (req, res) => {
   const { email, password, role = 'user' } = req.body
   
@@ -118,13 +107,11 @@ app.post('/register', (req, res) => {
     return res.status(400).json({ error: 'Email et mot de passe requis' })
   }
   
-  // Vérifier si l'utilisateur existe déjà
   const existingUser = checkCredentials(email, password)
   if (existingUser) {
     return res.status(409).json({ error: 'Utilisateur déjà existant' })
   }
   
-  // Ajouter le nouvel utilisateur
   const newUser = addUser(email, password, role)
   
   console.log(`Nouvel utilisateur inscrit: ${email}`)
@@ -139,7 +126,6 @@ app.post('/register', (req, res) => {
   })
 })
 
-// Routes protégées
 app.get('/protected', (req, res) => {
   res.json({
     message: 'Cette route est protégée',
@@ -165,7 +151,6 @@ app.get('/profile', (req, res) => {
   })
 })
 
-// Route pour lister les utilisateurs authentifiés (admin seulement)
 app.get('/users', (req, res) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({ error: 'Accès admin requis' })
@@ -177,7 +162,6 @@ app.get('/users', (req, res) => {
   })
 })
 
-// Route pour se déconnecter
 app.post('/logout', (req, res) => {
   const authHeader = req.headers.authorization
   if (authHeader) {
